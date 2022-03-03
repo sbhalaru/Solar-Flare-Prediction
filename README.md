@@ -2,7 +2,9 @@
 **Version 1.0.0**
 
 preprocessing.py
+
 This file contains the follwing 2 functions:
+
 parse_date(sdatex, stimex):
 This is used to parse the strings from the date time data in the dataframe.
 This allows us to create a more robust datetime format for its start, peak, and end.
