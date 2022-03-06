@@ -43,7 +43,7 @@ def preprocess(fname):
     solar_df = solar_df.drop(["active.region.ar", "flag.1", "flag.2", "flag.3", "flag.4", "flag.5"], axis=1)
 
     ''' Some Radial Values are beyond 2000'''
-    solar_df = solar_df[solar_df["x.pos.asec"] > -2000]
+    solar_df = solar_df[solar_df["radial"] <960]
 
 
     # Adding year, month, day, start date, peak date, end date and dropping earlier columns
@@ -76,7 +76,7 @@ def preprocess(fname):
     return solar_df
 
 
-def filter_data(data,filtered_eng = 0, filtered_rad_range = 99):
+def filter_energy(data,filtered_eng = 0, filtered_rad_range = 99):
     '''
     The function for filter the solar event by energy_kev and radial
 
@@ -115,46 +115,6 @@ def filter_month(data,start_month,end_month):
     return data
 
 
-def ploting_sunspot(filtered_data,start_month,end_month):
-    '''
-    The function for sunspot plotting using the filtered data
-    
-    '''
-    ts = tic()
-    assert isinstance(start_month,int)
-    assert isinstance(end_month,int)
-    assert start_month>=1 and end_month<=12
-    assert start_month<=end_month
-
-    colors = plt.cm.turbo(np.linspace(0,1,8))
-    plt.style.use('dark_background')
-    
-    filtered_data = filter_month(filtered_data,start_month,end_month)
-
-    # build figure object
-    fig, ax = plt.subplots(figsize=(10,10))
-    # loop over energy ranges
-    label_eng = ['3-6', '6-12','12-25','25-50','50-100','100-300','300-800','800-7000','7000-20000']
-
-    for i,irange in enumerate(np.arange(1,9)):
-        # collect filtered data in temporary dataset
-        AUX_data = filtered_data[filtered_data['energy_kev']==irange][['x_pos','y_pos']]
-        # scatter plot to plot flare
-        plt.scatter(AUX_data['x_pos'].values,AUX_data['y_pos'].values,color=colors[i],label='%s Kev'%label_eng[i])
-        plt.legend(loc='best',fontsize=9,shadow=True)
-        # delete auxillary/temporary dataset
-        del(AUX_data)
-    # set title to plot
-    plt.grid( linestyle = '--', linewidth = 0.35)
-    if end_month!=start_month:
-        plt.title('SUNSPOTS per Energy from month '+str(start_month)+' to '+str(end_month))
-    else:
-        plt.title('SUNSPOTS per Energy in month '+str(start_month))
-   
-    plt.show()
-    toc(ts,"Sunspot Drawing")
-
-
 def ploting_predicted_sunspot(energy,x_pos,y_pos):
     '''
     The function for sunspot plotting using the filtered data
@@ -170,33 +130,18 @@ def ploting_predicted_sunspot(energy,x_pos,y_pos):
     # loop over energy ranges
     label_eng = ['3-6', '6-12','12-25','25-50','50-100','100-300','300-800','800-7000','7000-20000']
 
-    for i,irange in enumerate(np.arange(1,9)):
-        # collect filtered data in temporary dataset
-        # AUX_data = filtered_data[filtered_data['energy_kev']==irange][['x_pos','y_pos']]
-        # scatter plot to plot flare
+    for i,irange in enumerate(np.arange(0,9)):
+
         plt.scatter(x_pos[energy==i],y_pos[energy==i],color=colors[i],label='%s Kev'%label_eng[i])
         plt.legend(loc='best',fontsize=9,shadow=True)
-        # delete auxillary/temporary dataset
-    # set title to plot
+
     plt.grid( linestyle = '--', linewidth = 0.35)
  
     plt.title('SUNSPOTS per Energy in prediciton')
    
     plt.show()
+
     toc(ts,"Sunspot Drawing")
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def solar_train(solar_data,test_size = 0.5):
@@ -236,7 +181,6 @@ def solar_train(solar_data,test_size = 0.5):
     random_forest_y_regressor = RandomForestRegressor(n_jobs=-1).fit(X_train_ypos, y_train_ypos)
     random_forest_y_predictions = random_forest_y_regressor.predict(X_test_ypos)
     random_forest_y_score = random_forest_y_regressor.score(X_test_ypos, y_test_ypos)
-
  
     print("accuarcy of energy prediction:",random_forest_energy_score)
     print("accuarcy of x pos prediction:",random_forest_x_score)
@@ -246,16 +190,64 @@ def solar_train(solar_data,test_size = 0.5):
     return random_forest_energy_predictions,random_forest_x_predictions,random_forest_y_predictions
 
 
+def ploting_sunspot(data,start_month,end_month):
+    '''
+    The function for sunspot plotting using the filtered data
+    
+    '''
+    ts = tic()
+    assert isinstance(start_month,int)
+    assert isinstance(end_month,int)
+    assert start_month>=1 and end_month<=12
+    assert start_month<=end_month
+
+    colors = plt.cm.turbo(np.linspace(-0.2,1,9))
+    plt.style.use('dark_background')
+    plt.rcParams.update({'font.size':12})
+   
+    data = filter_month(data,start_month,end_month)
+
+    # build figure object
+    fig, ax = plt.subplots(figsize=(10,10))
+    # loop over energy ranges
+    label_eng = ['3-6', '6-12','12-25','25-50','50-100','100-300','300-800','800-7000','7000-20000']
+    month_map = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+
+    for i,irange in enumerate(np.arange(0,9)):
+        
+        AUX_data = data[data['energy_kev']==irange][['x_pos','y_pos']]
+        # scatter plot to plot flare
+        plt.scatter(AUX_data['x_pos'].values,AUX_data['y_pos'].values,color=colors[i],label='%s Kev'%label_eng[i])
+        plt.legend(loc='lower right',fontsize=10,shadow=True)
+        
+    # set title to plot
+    plt.grid( linestyle = '--', linewidth = 0.35)
+    if end_month!=start_month:
+        plt.title('Sunspots per Energy from '+month_map[start_month-1]+' to '+month_map[end_month-1]+' 2002-2018')
+    else:
+        plt.title('Sunspots per Energy in '+ month_map[start_month-1]+ ' 2002-2018')
+
+    plt.xlabel('x_pos.asec')
+    plt.ylabel('y_pos.asec')
+    plt.xlim([-1200,1200])
+    plt.ylim([-1200,1200])
+    plt.savefig( str(start_month) +'_soalr_new.jpg',dpi = 300)
+
+    plt.show()
+    
+    toc(ts,"Sunspot Drawing")
+
 if __name__ == '__main__':
-    # filename = 'hessi.solar.flare.UP_To_2018.csv'
-    # solar_data = preprocess(filename)
-    # # the return data gives us the processed data of solar flare 
-    # # trans the energy range to label
-    # # trans the years month and days to single columns
-    # filtered_data = filter_data(solar_data,filtered_eng=0,filtered_rad_range=99)
-
-
-
-    ploting_sunspot(filtered_data,start_month=1,end_month=12)
-    eng_prd,x_prd,y_prd = solar_train(solar_data,test_size=0.7)
+    filename = 'hessi.solar.flare.UP_To_2018.csv'
+    solar_data = preprocess(filename)
+    # the return data gives us the processed data of solar flare 
+    # trans the energy range to label
+    # trans the years month and days to single columns
+    filtered_data = filter_energy(solar_data,filtered_eng=0,filtered_rad_range=99)
+    for i in range(0,12):
+        start_month = i+1
+        end_month = start_month
+        ploting_sunspot(solar_data,start_month,end_month)
+    
+    eng_prd,x_prd,y_prd = solar_train(solar_data,test_size=1)
     ploting_predicted_sunspot(energy=eng_prd,x_pos=x_prd,y_pos=y_prd)
