@@ -9,6 +9,7 @@
 1. Solar Flare notebook
 2. Our Modules
 3. Third-party Modules
+4. Authors
 
 
 ## Solar Flare.ipynb
