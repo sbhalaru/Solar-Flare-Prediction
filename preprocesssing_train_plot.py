@@ -231,7 +231,6 @@ def ploting_sunspot(data,start_month,end_month):
     plt.ylabel('y_pos.asec')
     plt.xlim([-1200,1200])
     plt.ylim([-1200,1200])
-    plt.savefig( str(start_month) +'_soalr_new.jpg',dpi = 300)
 
     plt.show()
     
