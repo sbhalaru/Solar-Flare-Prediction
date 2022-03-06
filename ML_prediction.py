@@ -123,5 +123,5 @@ def x_y_pos_prediction(cols = []):
     random_forest_score_train_y = random_forest_regressor_y.score(X_train_ypos, y_train_ypos)
 
     return random_forest_regressor_x, (random_forest_score_x, random_forest_score_train_x), \
-            (random_forest_MSE_x, random_forest_MSE_train_x), random_forest_MSE_train_y, \
+            (random_forest_MSE_x, random_forest_MSE_train_x), random_forest_regressor_y, \
             (random_forest_score_y, random_forest_score_train_y), (random_forest_MSE_y, random_forest_MSE_train_y)
