@@ -19,8 +19,6 @@ function parse_date(sdatex, stimex)
 This is used to parse the strings from the date time data in the dataframe.
 This allows us to create a more robust datetime format for its start, peak, and end.
 
------
-
 function preprocess(fname)
 
 This allows us to read in the csv file containing the whole solar flare data that we need to use for the project.
@@ -36,18 +34,13 @@ function train_test_spilt(df)
 
 Takes in a pandas DataFrame, splits it into train/test set and retunrs.
 
------
 function duration_prediction(cols = [])
 
 Takes in the columns name using to predict the duration, returns the regressor, confidence score, and MSE.
 
------
-
 function energy_prediction(cols = [])
 
 Takes in the columns name using to predict the energy_kev, returns the classifier and accuracy score.
-
------
 
 function x_y_pos_prediction(cols = [])
 
@@ -58,16 +51,12 @@ Takes in the columns name using to predict the x_pos and y_pos, returns the regr
 
 function ...
 
------
-
 function ...
 
 
 ### More python files..
 
 fucntion ...
-
------
 
 function ...
 
