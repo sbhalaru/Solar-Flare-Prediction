@@ -14,12 +14,12 @@ This notebook shows all the visualizations for our presentation and includes the
 
 #### preprocessing.py
 
-**function parse_date(sdatex, stimex)**
+- function parse_date(sdatex, stimex)
 
 This is used to parse the strings from the date time data in the dataframe.
 This allows us to create a more robust datetime format for its start, peak, and end.
 
-**function preprocess(fname)**
+- function preprocess(fname)
 
 This allows us to read in the csv file containing the whole solar flare data that we need to use for the project.
 
@@ -30,23 +30,25 @@ This allows us to read in the csv file containing the whole solar flare data tha
 
 #### ML_prediction.py
 
-**function train_test_spilt(df)**
+- function train_test_spilt(df)
 
-Takes in a pandas DataFrame, splits it into train/test set and retunrs
+Takes in a pandas DataFrame, splits it into train/test set and retunrs.
 
-**function duration_prediction(cols = [])**
+- function duration_prediction(cols = [])
 
-Takes in the columns name using to predict the duration, returns the regressor, confidence score, and MSE
+Takes in the columns name using to predict the duration, returns the regressor, confidence score, and MSE.
 
-**function energy_prediction(cols = [])**
+- function energy_prediction(cols = [])
 
-Takes in the columns name using to predict the energy_kev, returns the classifier and accuracy score
+Takes in the columns name using to predict the energy_kev, returns the classifier and accuracy score.
 
-**function x_y_pos_prediction(cols = [])**
+- function x_y_pos_prediction(cols = [])
 
-Takes in the columns name using to predict the x_pos and y_pos, returns the regressor, confidence score, and MSE
+Takes in the columns name using to predict the x_pos and y_pos, returns the regressor, confidence score, and MSE.
 
 #### Add your python files...
+
+- function ...
 
 ## Third-party modules
 numpy, pandas, matplotlib, seaborn, scikit-learn, scipy, datetime
