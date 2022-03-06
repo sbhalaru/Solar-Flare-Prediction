@@ -35,7 +35,7 @@ def preprocess(fname):
     solar_df = solar_df.drop(["active.region.ar", "flag.1", "flag.2", "flag.3", "flag.4", "flag.5"], axis=1)
 
     ''' Some Radial Values are beyond 2000'''
-    solar_df = solar_df[solar_df["x.pos.asec"] > -2000]
+    solar_df = solar_df[solar_df["radial"] <960]
 
 
 
