@@ -12,7 +12,7 @@ This notebook shows all the visualizations for our presentation and includes the
 
 ## Modules
 
-### preprocessing.py
+#### preprocessing.py
 
 **function parse_date(sdatex, stimex)**
 
@@ -28,7 +28,7 @@ This allows us to read in the csv file containing the whole solar flare data tha
 3. Along with the datetime, we changes values of the energy which is our main focus. Since they are in a range format, using machine learning makes it extremely complicated, therefore we converted them into numbers from 0 to 8 and will reconvert after the machine learning process
 4. We also drop certain unwanted columns at the end and change the duration column to a logarithmic scale since it is slightly skewed.
 
-### ML_prediction.py
+#### ML_prediction.py
 
 **function train_test_spilt(df)**
 
@@ -46,7 +46,7 @@ Takes in the columns name using to predict the energy_kev, returns the classifie
 
 Takes in the columns name using to predict the x_pos and y_pos, returns the regressor, confidence score, and MSE
 
-### Add your python files...
+#### Add your python files...
 
 ## Third-party modules
 numpy, pandas, matplotlib, seaborn, scikit-learn, scipy, datetime
