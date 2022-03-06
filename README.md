@@ -5,6 +5,12 @@
 **Include a readme file that explains your file structure, how to run your code, and name all third-party modules you are using.**
 
 
+## Outline
+1. Solar Flare notebook
+2. Our Modules
+3. Third-party Modules
+
+
 ## Solar Flare.ipynb
 
 This notebook shows all the visualizations for our presentation and includes the machine learning models we use for the prediction of energy, duration, x_pos, and y_pos.
@@ -60,7 +66,7 @@ Takes in the columns name using to predict the x_pos and y_pos, returns the regr
 
 - function ...
 
-## Third-party modules
+## Third-party Modules
 numpy, pandas, matplotlib, seaborn, scikit-learn, scipy, datetime
 
 
