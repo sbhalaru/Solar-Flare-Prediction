@@ -37,7 +37,6 @@ function train_test_spilt(df)
 Takes in a pandas DataFrame, splits it into train/test set and retunrs.
 
 -----
-
 function duration_prediction(cols = [])
 
 Takes in the columns name using to predict the duration, returns the regressor, confidence score, and MSE.
