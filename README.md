@@ -30,7 +30,6 @@ This allows us to create a more robust datetime format for its start, peak, and 
 
 This allows us to read in the csv file containing the whole solar flare data that we need to use for the project.
 
-<<<<<<< Updated upstream
 1. We drop certain columns and values that are no use to our project goal and helps to save time when processing the dataframe.
 2. We also make certain changes to the datetime formats given so that they become easier to handle in the machine learning section.
 3. Along with the datetime, we changes values of the energy which is our main focus. Since they are in a range format, using machine learning makes it extremely complicated, therefore we converted them into numbers from 0 to 8 and will reconvert after the machine learning process
@@ -70,20 +69,6 @@ Takes in the columns name using to predict the x_pos and y_pos, returns the regr
 
 ## Third-party Modules
 numpy, pandas, matplotlib, seaborn, scikit-learn, scipy, datetime
-=======
-ML_Prediction
-
-This file contains the 3 functions:
-
-train_test_spilt(df)
-
-duration_prediction(cols = [])
-
-energy_prediction(cols = [])
-
-
-x_y_pos_prediction(cols = [])
->>>>>>> Stashed changes
 
 
 ## Authors
