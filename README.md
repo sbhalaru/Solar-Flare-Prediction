@@ -41,9 +41,13 @@ This allows us to read in the csv file containing the whole solar flare data tha
 
 Takes in a pandas DataFrame, splits it into train/test set and retunrs.
 
+Example: X_train, X_test = train_test_spilt(df)
+
 - function duration_prediction(cols = [])
 
 Takes in the columns name using to predict the duration, returns the regressor, confidence score, and MSE.
+
+Example: model, score, MSE = duration_prediction(['total_counts', 'energy_kev', 'x_pos', 'y_pos'])
 
 - function energy_prediction(cols = [])
 
