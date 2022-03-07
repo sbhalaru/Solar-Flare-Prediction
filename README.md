@@ -37,6 +37,20 @@ This allows us to read in the csv file containing the whole solar flare data tha
 
 Example: pd_df = preprocess("hessi.solar.flare.UP_To_2018.csv")
 
+- function preprocess_plots(fname)
+
+This allows us to read in the csv file containing the whole solar flare data and process the data for the plots
+
+Example: pd_df = preprocess("hessi.solar.flare.UP_To_2018.csv")
+
+#### trend_plots.py
+
+- function plots(df)
+- 
+Takes in a pandas DataFrame and plots the data.
+
+Example: plots(df)
+
 #### ML_prediction.py
 
 - function train_test_spilt(df)
