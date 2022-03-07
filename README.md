@@ -35,6 +35,8 @@ This allows us to read in the csv file containing the whole solar flare data tha
 3. Along with the datetime, we changes values of the energy which is our main focus. Since they are in a range format, using machine learning makes it extremely complicated, therefore we converted them into numbers from 0 to 8 and will reconvert after the machine learning process
 4. We also drop certain unwanted columns at the end and change the duration column to a logarithmic scale since it is slightly skewed.
 
+Example: pd_df = preprocess("hessi.solar.flare.UP_To_2018.csv")
+
 #### ML_prediction.py
 
 - function train_test_spilt(df)
@@ -53,9 +55,13 @@ Example: model, score, MSE = duration_prediction(['total_counts', 'energy_kev', 
 
 Takes in the columns name using to predict the energy_kev, returns the classifier and accuracy score.
 
+Example: model, acc = energy_prediction(['duration', 'x_pos', 'y_pos'])
+
 - function x_y_pos_prediction(cols = [])
 
 Takes in the columns name using to predict the x_pos and y_pos, returns the regressor, confidence score, and MSE.
+
+Example: model_x, score_x, MSE_x, model_y, score_y, MSE_y = x_y_pos_prediction(['duration', 'total_counts', 'energy_kev'])
 
 
 #### Add your python files...
