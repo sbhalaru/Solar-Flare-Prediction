@@ -37,9 +37,6 @@ def preprocess(fname):
     ''' Some Radial Values are beyond 2000'''
     solar_df = solar_df[solar_df["radial"] <960]
 
-
-
-
     # Adding year, month, day, start date, peak date, end date and dropping earlier columns
     solar_df['dt.start'] = solar_df[['start.date','start.time']].apply(lambda x: parse_date(x[0],x[1]), axis=1)
     solar_df['dt.peak'] = solar_df[['start.date','peak']].apply(lambda x: parse_date(x[0],x[1]), axis=1)
@@ -64,10 +61,29 @@ def preprocess(fname):
     solar_df['energy_kev'] = solar_df['energy_kev'].map(category)
 
     solar_df['duration'] = np.log1p(solar_df['duration'])
-
     solar_df = solar_df.drop(['date_start', 'date_peak', 'date_end'], axis=1)
 
-    
+    return solar_df
+
+def preprocess_plots(fname):
+    '''
+    Process the data for the plots
+    :param fname: The name of the csv file containing our solar flare information
+    :return: solar_df (pandas.core.frame.DataFrame): The data frame that contains solar flare data after processing
+    '''
+    assert isinstance(fname,str)
+    solar_df = pd.read_csv(fname, parse_dates=["start.date", "start.time", "peak", "end"],
+                           dayfirst=True, infer_datetime_format=True)
+    solar_df = solar_df.drop(["flare", "flag.1", "flag.2", "flag.3", "flag.4", "flag.5", "active.region.ar"], axis=1)
+    solar_df = solar_df[solar_df["radial"] < 960]
+    energy_bands = ["3-6", "6-12", "12-25", "25-50", "50-100", "100-300", "300-800", "800-7000", "7000-20000"]
+    solar_df['energy.kev'] = pd.Categorical(solar_df['energy.kev'], categories=energy_bands, ordered=True)
+    solar_df["start.time"] = solar_df["start.time"].dt.time
+    solar_df["peak"] = solar_df["peak"].dt.time
+    solar_df["end"] = solar_df["end"].dt.time
+    solar_df["year"] = solar_df["start.date"].dt.year
+    solar_df["month"] = solar_df["start.date"].dt.month
+    solar_df['day'] = solar_df["start.date"].dt.day
     return solar_df
 
 
