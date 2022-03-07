@@ -148,7 +148,8 @@ def generate_time_lapse():
     ani = animation.FuncAnimation(fig, update, date_gen, interval=120, repeat=False, blit=False)
     writergif = animation.PillowWriter(fps=1)
     #ani.save('filename2.gif',writer=writergif)
+    plt.show()
     'Adding dark background'
     ani.save('filename2.gif',writer=writergif, savefig_kwargs={'facecolor':'black'})
-    #plt.show()
+    
 
