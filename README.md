@@ -53,9 +53,9 @@ Example: plots(df)
 
 #### animate.py
 
-- function ...
+- function generate_time_lapse()
 
-- function ...
+Reads data set and generates a timelapse animation.
 
 
 #### More python files..
