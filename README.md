@@ -57,13 +57,23 @@ Example: plots(df)
 
 Reads data set and generates a timelapse animation.
 
+#### sunspot_plot.py
 
-#### More python files..
+-function tic() and toc(tstart, name="Operation")
 
-- fucntion ...
+For showing the processing time
 
-- function ...
+-function def filter_energy(data,filtered_eng = 0, filtered_rad_range = 99)
 
+Inner function of ploting_sunspot, with the aim to drop the certian energy level for analysis
+
+-function filter_month(data,start_month,end_month)
+
+Inner funciton of ploting_sunspot, with the aim to drop some month for display
+
+-function ploting_sunspot(data,start_month,end_month)
+
+The main function for plotting the sunspot, it can show the certain range months, Example: ploting_sunspot(data,2,5) return the plotting result of energy level given by x-y postion from February to May. The data is the preprocessed data
 
 #### ML_prediction.py
 
@@ -98,7 +108,7 @@ numpy, pandas, matplotlib, seaborn, scikit-learn, scipy, datetime
 
 ## Authors
 Group 5:
-Haaris Rahman, Kevin Mills, Shaan Bhalaru, Yongxing Chen, Shusen Lin
+Haaris Rahman, Kevin Mills, Shaan Bhalaru, Shusen Lin, Yongxing Chen
 
 
 
