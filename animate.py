@@ -1,10 +1,10 @@
 import numpy as np
 import pandas as pd
-import seaborn as sns
-import matplotlib
+#import seaborn as sns
+#import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-from matplotlib.animation import FuncAnimation
+#from matplotlib.animation import FuncAnimation
 import datetime
 from dateutil.relativedelta import relativedelta
 
@@ -12,12 +12,12 @@ from dateutil.relativedelta import relativedelta
 
 def generate_time_lapse():
     def date_gen():
-        current_date = datetime.datetime(2002, 2, 1)
+        current_date = datetime.datetime(2007, 2, 1)
         #super slow so change 2018 to... something smaller, idk, 2014?
-        while (current_date.year != 2018):
+        while (current_date.year != 2008):
         #for i in range(0,3):
             #time_change = datetime.timedelta(hours=24)
-            time_change = relativedelta(months=1)
+            time_change = relativedelta(months=12)
             current_date = current_date + time_change
             #print('gen ran, today is  \n' +str(current_date))
             yield current_date
@@ -26,22 +26,22 @@ def generate_time_lapse():
     def update(current_date):
         # Get a date index to track what points to plot next
         
-        indices=solar_df.index[(solar_df['start.year']==current_date.year) & (solar_df['start.month']==current_date.month)].tolist()    #print('found indiced \n' + str(indices))
+        indices=solar_df.index[(solar_df['start.year']==current_date.year)].tolist()    #print('found indiced \n' + str(indices))
         solar_df.loc[indices,'alpha'] = 1.0
         #solar_df['alpha'] = solar_df['alpha'].apply(lambda x: x-0.1 if x>0 else 0)
         #solar_df.assign(solar_df.alpha=(solar_df.alpha - 0.1).where(solar_df.alpha!=0, 0)
-        title.set_text("Current Day:"+str((current_date.strftime("%Y, %m"))))
+        title.set_text("Current Year:"+str((current_date.strftime("%Y"))))
         scat.set_alpha(solar_df['alpha'])
         #scat.set_label('')
         # Show points of the desired time (set their alpha values to 1).
         #solar_df.loc[solar_df['alpha'] > 0, 'alpha'] = solar_df['alpha'] - 0.1
         #lazy way to make fade out any points
         #Make all points more transparent (0 transparent points are not affected).
-        solar_df.loc[solar_df['alpha'] == 0.3, 'alpha'] = 0
-        solar_df.loc[solar_df['alpha'] == 0.6, 'alpha'] = 0.3
+        #solar_df.loc[solar_df['alpha'] == 0.3, 'alpha'] = 0.0
+        #solar_df.loc[solar_df['alpha'] == 0.6, 'alpha'] = 0.3
         #solar_df.loc[solar_df['alpha'] == 0.6, 'alpha'] = 0.4
         #solar_df.loc[solar_df['alpha'] == 0.8, 'alpha'] = 0.6
-        solar_df.loc[solar_df['alpha'] == 1.0, 'alpha'] = 0.6
+        solar_df.loc[solar_df['alpha'] == 1.0, 'alpha'] = 0.0
         
         #adding legend? Automatic doesn't seem to work
         #ax.legend(solar_df['energy.kev'], solar_df['energy.kev'].unique().tolist(),loc=1)
@@ -83,7 +83,7 @@ def generate_time_lapse():
     solar_df = solar_df[solar_df["radial"] <960]
     n_points= len(solar_df)
     '''Add alpha for transparency during animation, fades out old flares.'''
-    solar_df['alpha'] = float(0)
+    solar_df['alpha'] = 0.0
     solar_df['start.year'] = pd.DatetimeIndex(solar_df['start.date']).year
     solar_df['start.month'] = pd.DatetimeIndex(solar_df['start.date']).month
     '''Big TO DO: Add color column (based on ev bands) and size column (based on duration.
@@ -101,24 +101,26 @@ def generate_time_lapse():
     #df.apply(lambda r: tuple(r), axis=1).apply(np.array)
     catagories = solar_df['energy.kev'].unique().tolist()
     #atest = solar_df[solar_df['energy.kev']=='3-6'].index
-    color_df.iloc[solar_df[solar_df['energy.kev']=='3-6'].index.values] = colormap[0]
-    color_df.iloc[solar_df[solar_df['energy.kev']=='6-12'].index.values] = colormap[1]
-    color_df.iloc[solar_df[solar_df['energy.kev']=='12-25'].index.values] = colormap[2]
-    color_df.iloc[solar_df[solar_df['energy.kev']=='25-50'].index.values] = colormap[3]
-    color_df.iloc[solar_df[solar_df['energy.kev']=='50-100'].index.values] = colormap[4]
-    color_df.iloc[solar_df[solar_df['energy.kev']=='100-300'].index.values] = colormap[5]
-    color_df.iloc[solar_df[solar_df['energy.kev']=='300-800'].index.values] = colormap[6]
-    color_df.iloc[solar_df[solar_df['energy.kev']=='800-7000'].index.values] = colormap[7]
-    color_df.iloc[solar_df[solar_df['energy.kev']=='7000-20000'].index.values] = colormap[8]
+    color_df.iloc[solar_df[solar_df['energy.kev']=='3-6'].index] = colormap[0]
+    color_df.iloc[solar_df[solar_df['energy.kev']=='6-12'].index] = colormap[1]
+    color_df.iloc[solar_df[solar_df['energy.kev']=='12-25'].index] = colormap[2]
+    color_df.iloc[solar_df[solar_df['energy.kev']=='25-50'].index] = colormap[3]
+    color_df.iloc[solar_df[solar_df['energy.kev']=='50-100'].index] = colormap[4]
+    color_df.iloc[solar_df[solar_df['energy.kev']=='100-300'].index] = colormap[5]
+    color_df.iloc[solar_df[solar_df['energy.kev']=='300-800'].index] = colormap[6]
+    color_df.iloc[solar_df[solar_df['energy.kev']=='800-7000'].index] = colormap[7]
+    color_df.iloc[solar_df[solar_df['energy.kev']=='7000-20000'].index] = colormap[8]
     
     
-    
-    scat = ax.scatter(solar_df["x.pos.asec"],solar_df["y.pos.asec"], alpha = solar_df['alpha'], s = solar_df['duration.s']/5, c=color_df)
+    ax.grid(linestyle='--',linewidth=0.35)
+    #ax.legend(loc='best',fontsize=9,shadow=True, handles = catagories,
+    #          labels=['1','2','3','4','5','6','7','8','9'] )
+    scat = ax.scatter(solar_df["x.pos.asec"],solar_df["y.pos.asec"], alpha=0.0, s = solar_df['duration.s']/5, c=color_df)
     #plt.legend(solar_df['energy.kev'].unique().tolist())
     ''' Work to add circle grid to the animation'''
     circle = plt.Circle((0,0), 1000, color='r', fill=False)
     #ax.add_patch(circle)
-    ax.grid(linestyle='--',linewidth=0.35)
+
     #scat.xlabel('x_pos.asec')
     #scat.ylabel('y_pos.asec')
     #scat.xlim([-1200,1200])
@@ -150,6 +152,6 @@ def generate_time_lapse():
     #ani.save('filename2.gif',writer=writergif)
     plt.show()
     'Adding dark background'
-    ani.save('filename2.gif',writer=writergif, savefig_kwargs={'facecolor':'black'})
+    #ani.save('filename2.gif',writer=writergif, savefig_kwargs={'facecolor':'black'})
     
-
+#x_ani=generate_time_lapse()
