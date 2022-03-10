@@ -6,11 +6,9 @@
 3. Third-party Modules
 4. Authors
 
-
 ## Solar Flare.ipynb
 
 This notebook shows all the visualizations for our presentation and includes the machine learning models we use for the prediction of energy, duration, x_pos, and y_pos.
-
 
 ## Modules
 
@@ -60,19 +58,19 @@ Example: generate_time_lapse()
 
 For showing the processing time
 
--function def filter_energy(data,filtered_eng = 0, filtered_rad_range = 99)
+-function def filter_energy(data, filtered_eng = 0, filtered_rad_range = 99)
 
 Inner function of ploting_sunspot, with the aim to drop the certian energy level for analysis
 
 Example: solar_df = filter_energy(solar_df)
 
--function filter_month(data,start_month,end_month)
+-function filter_month(data, start_month, end_month)
 
 Inner funciton of ploting_sunspot, with the aim to drop some month for display
 
 Example: solar_df = filter_month(solar_df, 1, 12)
 
--function ploting_sunspot(data,start_month,end_month)
+-function ploting_sunspot(data, start_month, end_month)
 
 The main function for plotting the sunspot, it can show the certain range months, Example: ploting_sunspot(data,2,5) return the plotting result of energy level given by x-y postion from February to May. The data is the preprocessed data
 
@@ -112,6 +110,3 @@ numpy, pandas, matplotlib, seaborn, scikit-learn, scipy, datetime, time
 ## Authors
 Group 5:
 Haaris Rahman, Kevin Mills, Shaan Bhalaru, Shusen Lin, Yongxing Chen
-
-
-
