@@ -62,13 +62,13 @@ For showing the processing time
 
 Inner function of ploting_sunspot, with the aim to drop the certian energy level for analysis
 
-Example: solar_df = filter_energy(solar_df)
+Example: df = filter_energy(df)
 
 -function filter_month(data, start_month, end_month)
 
 Inner funciton of ploting_sunspot, with the aim to drop some month for display
 
-Example: solar_df = filter_month(solar_df, 1, 12)
+Example: df = filter_month(df, 1, 12)
 
 -function ploting_sunspot(data, start_month, end_month)
 
