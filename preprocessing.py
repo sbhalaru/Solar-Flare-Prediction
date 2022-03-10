@@ -76,8 +76,6 @@ def preprocess_plots(fname):
                            dayfirst=True, infer_datetime_format=True)
     solar_df = solar_df.drop(["flare", "flag.1", "flag.2", "flag.3", "flag.4", "flag.5", "active.region.ar"], axis=1)
     solar_df = solar_df[solar_df["radial"] < 960]
-    energy_bands = ["3-6", "6-12", "12-25", "25-50", "50-100", "100-300", "300-800", "800-7000", "7000-20000"]
-    solar_df['energy.kev'] = pd.Categorical(solar_df['energy.kev'], categories=energy_bands, ordered=True)
     solar_df["start.time"] = solar_df["start.time"].dt.time
     solar_df["peak"] = solar_df["peak"].dt.time
     solar_df["end"] = solar_df["end"].dt.time
