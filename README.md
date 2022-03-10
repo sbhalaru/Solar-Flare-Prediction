@@ -41,15 +41,29 @@ Example: pd_df = preprocess("hessi.solar.flare.UP_To_2018.csv")
 
 This allows us to read in the csv file containing the whole solar flare data and process the data for the plots
 
-Example: pd_df = preprocess("hessi.solar.flare.UP_To_2018.csv")
+Example: pd_df = preprocess_plots("hessi.solar.flare.UP_To_2018.csv")
 
 #### trend_plots.py
 
 - function plots(df)
-- 
+
 Takes in a pandas DataFrame and plots the data.
 
 Example: plots(df)
+
+#### animate.py
+
+- function ...
+
+- function ...
+
+
+#### More python files..
+
+- fucntion ...
+
+- function ...
+
 
 #### ML_prediction.py
 
@@ -77,19 +91,6 @@ Takes in the columns name using to predict the x_pos and y_pos, returns the regr
 
 Example: model_x, score_x, MSE_x, model_y, score_y, MSE_y = x_y_pos_prediction(['duration', 'total_counts', 'energy_kev'])
 
-
-#### Add your python files...
-
-- function ...
-
-- function ...
-
-
-#### More python files..
-
-- fucntion ...
-
-- function ...
 
 ## Third-party Modules
 numpy, pandas, matplotlib, seaborn, scikit-learn, scipy, datetime
