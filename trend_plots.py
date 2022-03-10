@@ -15,22 +15,29 @@ def plots(solar_df):
     month_order = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
                    "November", "December"]
     duration = solar_df['duration.s']
-    radial = solar_df['radial']
+    energy_bands = {"100-300": 5, "12-25": 2, "25-50": 3, "3-6": 0, "300-800": 6, "50-100": 4, "6-12": 1,
+                    "7000-20000": 8,
+                    "800"
+                    "-7000": 7}
+
+    df = solar_df.copy(deep=True)
+    df["energy.kev"] = df["energy.kev"].apply(lambda x: energy_bands[x])
 
     # Adjust plot styles
     plt.style.use("dark_background")
     color = (32 / 255, 100 / 255, 170 / 255, 255 / 255)
-
     # Mask to cover the symmetric portion of the heat map
-    corr = solar_df.corr()
+    corr = df.corr()
     mask = np.triu(np.ones_like(corr)) - np.eye(corr.shape[0])
+
 
     f, ax = plt.subplots(figsize=(11, 9))
     cmap = sns.color_palette("RdBu", as_cmap=True)
     sns.heatmap(corr, mask=mask, cmap=cmap, center=0,
                 square=True, linewidths=0, cbar_kws={"shrink": .5})
     plt.title("Data Correlation Heat Map", fontsize=20)
-    plt.xticks(rotation=45)
+    plt.xticks(rotation=45, fontsize=15)
+    plt.yticks(fontsize=15)
     plt.show()
 
     # Total Number of Flares grouped by duration
@@ -71,14 +78,35 @@ def plots(solar_df):
     plt.title("Number of Flare Events per Year", fontsize=20)
     plt.show()
 
-    # Number of flare event across all years per month
-    df = solar_df.loc[:, ['month', 'total.counts']]
-
+    # Number of flare event per month for 2014
+    df = solar_df[solar_df['year'] == 2014]
+    df = df.loc[:, ['month', 'total.counts']]
     df = df["total.counts"].groupby(df["month"]).count()
     ax = df.plot(color=color, fontsize=12)
     ax.set_xlabel("Month", fontsize=15)
     ax.set_ylabel("Number of Flares Events", fontsize=15)
-    plt.title("Number of Flare Events per Month Across All Years", fontsize=20)
+    plt.title("Number of Flare Events per Month in 2014", fontsize=20)
+    plt.xticks(range(13), month_order)
+    plt.show()
+
+    # Number of flare event per month for 2008
+    df = solar_df[solar_df['year'] == 2008]
+    df = df.loc[:, ['month', 'total.counts']]
+    df = df["total.counts"].groupby(df["month"]).count()
+    ax = df.plot(color=color, fontsize=12)
+    ax.set_xlabel("Month", fontsize=15)
+    ax.set_ylabel("Number of Flares Events", fontsize=15)
+    plt.title("Number of Flare Events per Month in 2008", fontsize=20)
+    plt.xticks(range(13), month_order)
+    plt.show()
+
+    # Number of flare event per month for all years
+    df = solar_df.loc[:, ['month', 'total.counts']]
+    df = df["total.counts"].groupby(df["month"]).count()
+    ax = df.plot(color=color, fontsize=12)
+    ax.set_xlabel("Month", fontsize=15)
+    ax.set_ylabel("Number of Flares Events", fontsize=15)
+    plt.title("Number of Flare Events per Month from 2002-2018", fontsize=20)
     plt.xticks(range(13), month_order)
     plt.show()
 
