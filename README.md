@@ -1,9 +1,4 @@
-# Solar-Flare-Prediction README
-
-**Version 1.1.0**
-
-**Include a readme file that explains your file structure, how to run your code, and name all third-party modules you are using.**
-
+# Solar-Flare-Prediction README.md
 
 ## Outline
 1. Solar Flare notebook
