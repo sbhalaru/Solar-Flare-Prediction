@@ -58,7 +58,7 @@ Example: generate_time_lapse()
 
 For showing the processing time
 
--function def filter_energy(data, filtered_eng = 0, filtered_rad_range = 99)
+-function filter_energy(data, filtered_eng = 0, filtered_rad_range = 99)
 
 Inner function of ploting_sunspot, with the aim to drop the certian energy level for analysis
 
